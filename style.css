@@ -1,7 +1,12 @@
 
+/* ========================================
+   GLOBAL SETTINGS
+======================================== */
+
 html {
     scroll-behavior: smooth;
     scroll-snap-type: y proximity;
+    scroll-padding-top: 100px;
 }
 
 :root {
@@ -20,9 +25,13 @@ body {
     margin: 0;
     background-color: var(--red);
     font-family: "Inter", sans-serif;
+    overflow-x: hidden;
 }
 
-/* NAVIGATION */
+
+/* ========================================
+   NAVIGATION BAR
+======================================== */
 
 #topbar {
     position: fixed;
@@ -36,24 +45,24 @@ body {
     align-items: center;
     gap: clamp(18px, 3vw, 45px);
 
-    padding: 12px clamp(24px, 5vw, 80px);
+    padding: 12px clamp(25px, 5vw, 90px);
 
     background: transparent;
     transition: background-color 0.3s ease;
 }
 
 #topbar img {
-    width: clamp(42px, 4vw, 60px);
-    height: clamp(42px, 4vw, 60px);
+    width: clamp(42px, 4vw, 65px);
+    height: clamp(42px, 4vw, 65px);
     object-fit: contain;
-    margin: 0;
+    flex-shrink: 0;
     transition: filter 0.3s ease;
 }
 
 #topbar #tile {
     color: var(--white);
     font-family: "Poppins", sans-serif;
-    font-size: clamp(18px, 1.5vw, 24px);
+    font-size: clamp(18px, 1.5vw, 26px);
     font-weight: 500;
     margin-right: auto;
     transition: color 0.3s ease;
@@ -66,11 +75,13 @@ body {
     color: var(--white);
 
     font-family: "Inter", sans-serif;
-    font-size: clamp(14px, 1.1vw, 18px);
+    font-size: clamp(14px, 1vw, 18px);
     font-weight: 400;
 
     padding: 10px 0;
     cursor: pointer;
+    white-space: nowrap;
+
     transition: color 0.3s ease;
 }
 
@@ -82,18 +93,14 @@ body {
     width: 0;
     height: 2px;
     background: var(--cream);
-    transition: width 0.25s ease, background 0.3s ease;
+    transition: width 0.25s ease;
 }
 
 #topbar button:hover::after {
     width: 100%;
 }
 
-#topbar button:hover {
-    font-weight: 600;
-}
-
-/* LIGHT NAVBAR */
+/* Light sections */
 
 #topbar.light #tile,
 #topbar.light button {
@@ -110,7 +117,10 @@ body {
         hue-rotate(177deg) brightness(93%);
 }
 
-/* SECTIONS */
+
+/* ========================================
+   SECTION BASE
+======================================== */
 
 #d1, #d2, #d3, #d4, #d5, #d6 {
     width: 100%;
@@ -119,55 +129,269 @@ body {
 
     position: relative;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    display: grid;
+    align-items: center;
 
-    padding: 120px 30px 7vh;
+    padding:
+        clamp(125px, 14vh, 170px)
+        clamp(30px, 7vw, 120px)
+        clamp(100px, 12vh, 140px);
+
+    gap: clamp(25px, 4vw, 70px);
 
     scroll-snap-align: start;
 }
+
+/* Background colours */
 
 #d1 {
     background-color: var(--red);
 }
 
-#d2 {
+#d2, #d4, #d6 {
     background-color: var(--cream);
 }
 
-#d3 {
+#d3, #d5 {
     background-color: var(--navy);
 }
 
-#d4 {
-    background-color: var(--cream);
+
+/* ========================================
+   SECTION 1 - HERO
+======================================== */
+
+#d1 {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+
+    grid-template-areas:
+        "title image"
+        "subtitle image"
+        "description image";
+
+    column-gap: clamp(25px, 5vw, 90px);
+    row-gap: 10px;
 }
 
-#d5 {
-    background-color: var(--navy);
+#fi1 {
+    grid-area: title;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(65px, 10vw, 190px);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--white);
+    overflow-wrap: anywhere;
 }
 
-#d6 {
-    background-color: var(--cream);
+#fii1 {
+    grid-area: subtitle;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(22px, 3vw, 48px);
+    font-weight: 200;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: clamp(3px, 0.7vw, 10px);
+
+    text-decoration: underline 2px white;
+    text-underline-offset: clamp(12px, 2vw, 35px);
+
+    margin-top: 10px;
 }
 
-/* SCROLL BUTTONS */
+#fiii1 {
+    grid-area: description;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(16px, 1.5vw, 25px);
+    font-weight: 300;
+    color: var(--white);
+    font-style: italic;
+    line-height: 1.7;
+    max-width: 750px;
+    margin-top: 25px;
+}
+
+#fiimg {
+    grid-area: image;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fiimg img {
+    position: static !important;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+
+/* ========================================
+   SECTIONS 2 - 6
+======================================== */
+
+#d2, #d3, #d4, #d5, #d6 {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+
+    grid-template-areas:
+        "number image"
+        "heading image"
+        "description image";
+
+    column-gap: clamp(25px, 5vw, 90px);
+    row-gap: 10px;
+}
+
+
+/* SECTION NUMBERS */
+
+#fi2, #fi4, #fi6 {
+    grid-area: number;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(65px, 8vw, 150px);
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+}
+
+#fi3, #fi5 {
+    grid-area: number;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(65px, 8vw, 150px);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1;
+}
+
+
+/* SECTION HEADINGS */
+
+#fii2, #fii4, #fii6 {
+    grid-area: heading;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(25px, 3.2vw, 60px);
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: clamp(1px, 0.5vw, 8px);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+}
+
+#fii3, #fii5 {
+    grid-area: heading;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(25px, 3.2vw, 60px);
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: clamp(1px, 0.5vw, 8px);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+}
+
+
+/* SECTION DESCRIPTIONS */
+
+#fiii2, #fiii4, #fiii6 {
+    grid-area: description;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(15px, 1.35vw, 25px);
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.75;
+    white-space: pre-line;
+    max-width: 1100px;
+}
+
+#fiii3, #fiii5 {
+    grid-area: description;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(15px, 1.35vw, 25px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.75;
+    white-space: pre-line;
+    max-width: 1100px;
+}
+
+
+/* ========================================
+   IMAGES - SECTIONS 2 TO 6
+======================================== */
+
+#fiimg2, #fiimg3, #fiimg4,
+#fiimg5, #fiimg6 {
+    grid-area: image;
+
+    width: 100%;
+    max-width: 650px;
+
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    justify-self: center;
+    align-self: center;
+}
+
+#fiimg2 img,
+#fiimg3 img,
+#fiimg4 img,
+#fiimg5 img,
+#fiimg6 img {
+    position: static !important;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+/* Navy illustrations */
+
+#fiimg2 img,
+#fiimg4 img,
+#fiimg6 img {
+    filter: brightness(0) saturate(100%)
+        invert(12%) sepia(77%) saturate(450%)
+        hue-rotate(175deg) brightness(93%) contrast(96%);
+}
+
+/* Cream illustrations */
+
+#fiimg3 img,
+#fiimg5 img {
+    filter: brightness(0) saturate(100%)
+        invert(88%) sepia(2%) saturate(678%)
+        hue-rotate(354deg) brightness(112%) contrast(92%);
+}
+
+
+/* ========================================
+   SCROLL BUTTONS
+======================================== */
 
 #srco, #srcol {
-    position: relative;
+    position: absolute;
+
+    left: 50%;
+    bottom: clamp(20px, 5vh, 60px);
+
+    transform: translateX(-50%);
 
     width: clamp(48px, 5vw, 76px);
     height: clamp(48px, 5vw, 76px);
-
-    flex-shrink: 0;
 
     border: none;
     border-radius: 50%;
 
     cursor: pointer;
 
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.25s ease;
 }
 
 #srco {
@@ -179,26 +403,61 @@ body {
 }
 
 #srco:hover, #srcol:hover {
-    transform: translateY(7px);
+    transform: translate(-50%, 7px);
 }
 
-/* LARGE PROJECTORS / WIDE SCREENS */
+
+/* ========================================
+   LARGE PROJECTORS / 4K SCREENS
+======================================== */
 
 @media (min-width: 1600px) {
+
     #topbar {
         min-height: 110px;
     }
 
     #d1, #d2, #d3, #d4, #d5, #d6 {
-        padding-bottom: 8vh;
+        padding-left: clamp(100px, 8vw, 180px);
+        padding-right: clamp(100px, 8vw, 180px);
+    }
+
+    #fiii2, #fiii3, #fiii4,
+    #fiii5, #fiii6 {
+        max-width: 1250px;
     }
 }
 
-/* TABLETS */
+
+/* ========================================
+   LAPTOPS
+======================================== */
+
+@media (max-width: 1200px) {
+
+    #d1 {
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    #d2, #d3, #d4, #d5, #d6 {
+        grid-template-columns: 1.3fr 0.7fr;
+    }
+
+    #fiimg2, #fiimg3, #fiimg4,
+    #fiimg5, #fiimg6 {
+        max-width: 400px;
+    }
+}
+
+
+/* ========================================
+   TABLETS
+======================================== */
 
 @media (max-width: 900px) {
+
     #topbar {
-        gap: 18px;
+        gap: 20px;
         padding: 12px 25px;
     }
 
@@ -210,160 +469,215 @@ body {
     #topbar button {
         font-size: 14px;
     }
+
+    #d1, #d2, #d3, #d4, #d5, #d6 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
+        padding-left: 35px;
+        padding-right: 35px;
+        column-gap: 25px;
+    }
+
+    #fiimg2, #fiimg3, #fiimg4,
+    #fiimg5, #fiimg6 {
+        max-width: 300px;
+    }
+
+    #fiii2, #fiii3, #fiii4,
+    #fiii5, #fiii6 {
+        font-size: 15px;
+    }
 }
 
-/* PHONES */
+
+/* ========================================
+   PHONES
+======================================== */
 
 @media (max-width: 600px) {
+
+    html {
+        scroll-padding-top: 110px;
+    }
+
     #topbar {
         min-height: 75px;
         padding: 10px 15px;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
+        justify-content: center;
+        background: rgba(22, 38, 64, 0.12);
     }
 
     #topbar img {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
     }
 
     #topbar #tile {
         font-size: 16px;
+        margin-right: auto;
     }
 
     #topbar button {
-        font-size: 12px;
-        padding: 5px 0;
+        font-size: 11px;
+        padding: 6px 0;
     }
 
     #d1, #d2, #d3, #d4, #d5, #d6 {
-        padding: 100px 15px 8vh;
+        min-height: 100svh;
+
+        display: grid;
+
+        grid-template-columns: minmax(0, 1fr);
+
+        grid-template-areas:
+            "number"
+            "title"
+            "subtitle"
+            "description"
+            "image";
+
+        align-content: start;
+        align-items: start;
+
+        padding: 120px 22px 100px;
+        gap: 15px;
+    }
+
+    /* Hero layout */
+
+    #d1 {
+        grid-template-areas:
+            "title"
+            "subtitle"
+            "description"
+            "image";
+    }
+
+    #fi1 {
+        font-size: clamp(55px, 14vw, 85px);
+    }
+
+    #fii1 {
+        font-size: clamp(20px, 6vw, 30px);
+        letter-spacing: 3px;
+    }
+
+    #fiii1 {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-top: 10px;
+    }
+
+    /* Other section typography */
+
+    #fi2, #fi3, #fi4,
+    #fi5, #fi6 {
+        font-size: 65px;
+    }
+
+    #fii2, #fii3, #fii4,
+    #fii5, #fii6 {
+        font-size: clamp(24px, 7vw, 34px);
+        letter-spacing: 2px;
+    }
+
+    #fiii2, #fiii3, #fiii4,
+    #fiii5, #fiii6 {
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 100%;
+    }
+
+    /* Images */
+
+    #fiimg, #fiimg2, #fiimg3,
+    #fiimg4, #fiimg5, #fiimg6 {
+        width: 100%;
+        max-width: 100%;
+        max-height: 300px;
+        aspect-ratio: 1 / 1;
+        margin-top: 15px;
+    }
+
+    #fiimg img,
+    #fiimg2 img, #fiimg3 img,
+    #fiimg4 img, #fiimg5 img,
+    #fiimg6 img {
+        max-width: 100%;
+        max-height: 280px;
+        object-fit: contain;
     }
 
     #srco, #srcol {
         width: 48px;
         height: 48px;
+        bottom: 20px;
     }
 }
 
-/* SHORT SCREENS */
 
-@media (max-height: 600px) {
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 380px) {
+
+    #topbar {
+        gap: 7px;
+        padding: 8px 10px;
+    }
+
+    #topbar button {
+        font-size: 10px;
+    }
+
+    #topbar #tile {
+        font-size: 14px;
+    }
+
     #d1, #d2, #d3, #d4, #d5, #d6 {
-        min-height: 600px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 
 
-#fi1{
-    font-family: "Poppins", sans-serif;
-    font-size: 200px;
-    font-weight: 600;
-    color: var(--white);
-    position: absolute;
-    top: 25%;
-    left: 5%;
+/* ========================================
+   SHORT SCREENS
+======================================== */
+
+@media (max-height: 600px) and (min-width: 901px) {
+
+    #d1, #d2, #d3, #d4, #d5, #d6 {
+        min-height: 700px;
+        padding-top: 120px;
+        padding-bottom: 100px;
+    }
+
+    #fiimg2, #fiimg3, #fiimg4,
+    #fiimg5, #fiimg6 {
+        max-height: 450px;
+    }
 }
 
-#fii1 {
-    font-family: "Poppins", sans-serif;
-    font-size: 50px;
-    font-weight: 200;
-    color: var(--white);
-    position: absolute;
-    top: 47%;
-    left: 7%;
-    text-transform: uppercase;
-    letter-spacing: 10px;
-    text-decoration: underline 2px white;
-    text-underline-offset: 45px;
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+    }
+
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+    }
 }
 
-#fiii1 {
-    font-family: "Poppins", sans-serif;
-    font-size: 24px;
-    font-weight: 200;
-    color: var(--white);
-    position: absolute;
-    top: 60%;
-    left: 7%;
-    font-style: italic;
-    width: 600px;
-}
-
-#d1 img {
-    position: absolute;
-    left: 1400px;
-    top: -50px;
-    width: 1000px;
-    height: 1000px;
-    object-fit: cover;
-}
-
-#fi3, #fi5 {
-    font-family: "Poppins", sans-serif;
-    font-size: 150px;
-    font-weight: 600;
-    color: var(--white);
-    position: absolute;
-    top: 10%;
-    left: 5%;
-}
-
-#fi2, #fi4, #fi6 {
-    font-family: "Poppins", sans-serif;
-    font-size: 150px;
-    font-weight: 600;
-    color: var(--navy);
-    position: absolute;
-    top: 10%;
-    left: 5%;
-}
-
-#fii3, #fii5 {
-    font-family: "Poppins", sans-serif;
-    font-size: 60px;
-    font-weight: 600;
-    color: var(--white);
-    position: absolute;
-    top: 25%;
-    left: 5%;
-    text-transform: uppercase;
-    letter-spacing: 10px;
-}
-
-#fii2, #fii4, #fii6 {
-    font-family: "Poppins", sans-serif;
-    font-size: 60px;
-    font-weight: 600;
-    color: var(--navy);
-    position: absolute;
-    top: 25%;
-    left: 5%;
-    text-transform: uppercase;
-    letter-spacing: 10px;
-}
-
-#fiii3, #fiii5 {
-    font-family: "Poppins", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    color: var(--white);
-    position: absolute;
-    top: 33%;
-    left: 5%;
-    font-style: italic;
-    width: 1000px;
-}
-
-#fiii2, #fiii4, #fiii6 {
-    font-family: "Poppins", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    color: var(--navy);
-    position: absolute;
-    top: 33%;
-    left: 5%;
-    font-style: italic;
-    width: 1000px;
+#d1, #d2, #d3, #d4, #d5, #d6 {
+    scroll-margin-top: -100px;
 }
