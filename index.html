@@ -13,20 +13,73 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">   
 </head>
 <body>
-     <div id="topbar">
-        <img src="merlion-3-svgrepo-com.svg" alt="">
-        <div id="tile">Singapore</div>
-        <button>Home</button>
-        <button>Explore</button>
-        <button>Facts</button>
-        <button>About</button>
-     </div>
-     <div id="d1">.</div>
-        <div id="d2">.</div>
-        <div id="d3">.</div>
-        <div id="d4">.</div>
-        <div id="d5">.</div>
-        <div id="d6">.</div>
-    
+
+<div id="topbar">
+    <img src="merlion-3-svgrepo-com.svg" alt="Merlion logo">
+
+    <div id="tile">Singapore</div>
+
+    <button onclick="topFunction()">Home</button>
+    <button onclick="document.getElementById('d2').scrollIntoView({behavior:'smooth'})">Explore</button>
+    <button onclick="document.getElementById('d3').scrollIntoView({behavior:'smooth'})">Facts</button>
+    <button onclick="document.getElementById('d6').scrollIntoView({behavior:'smooth'})">About</button>
+</div>
+
+<div id="d1">
+    <button id="srco" onclick="document.getElementById('d2').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down"></button>
+    <div id="fi1">Singapore</div>
+</div>
+
+<div id="d2">
+    <button id="srcol" onclick="document.getElementById('d3').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down"></button>
+</div>
+
+<div id="d3">
+    <button id="srco" onclick="document.getElementById('d4').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down"></button>
+</div>
+
+<div id="d4">
+    <button id="srcol" onclick="document.getElementById('d5').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down"></button>
+</div>
+
+<div id="d5">
+    <button id="srco" onclick="document.getElementById('d6').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down"></button>
+</div>
+
+<div id="d6"></div>
+
+<script>
+
+function topFunction() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+const topbar = document.getElementById("topbar");
+
+const sections = document.querySelectorAll(
+    "#d1, #d2, #d3, #d4, #d5, #d6"
+);
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if (["d2", "d4", "d6"].includes(entry.target.id)) {
+                topbar.classList.add("light");
+            } else {
+                topbar.classList.remove("light");
+            }
+        }
+    });
+}, {
+    rootMargin: "-100px 0px -80% 0px",
+    threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+
+</script>
 </body>
 </html>
